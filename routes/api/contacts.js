@@ -2,15 +2,15 @@ const express = require('express');
 const router = express.Router();
 const { getAll, getById, add, updateById, deleteById, updateFavourite } = require('../../controllers/contacts');
 
-const { validateBody } = require('../../middlewares');
+const { validateBody, authCheck } = require('../../middlewares');
 const { schemas } = require('../../models/contact');
 
 
-router.get('/', getAll);
+router.get('/', authCheck, getAll);
 
 router.get('/:contactId', getById);
 
-router.post('/', validateBody(schemas.addScheme), add);
+router.post('/', authCheck, validateBody(schemas.addScheme), add);
 
 router.put('/:contactId', validateBody(schemas.addScheme), updateById);
 
